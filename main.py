@@ -99,6 +99,7 @@ def moveToLine():
     #read the third sensor value and move forward until we hit the black line
     #once we hit the line we turn depending on approach and move forward.
 
+#helper method for recursion
 def readAndMove():
     irValue = center_ir_sensor.read("DC")
     #TODO Need to check what value we get on black line 
@@ -146,6 +147,11 @@ def movement(left_ir_sensor, right_ir_sensor):
         base.turn(-25)
         heading =-20
         movement(left_ir_sensor, right_ir_sensor)
+    
+    #we have the ball now call funktion to move to line TODO check what values to use on sensors
+    if left_ir_sensor_value[0]>5 and right_ir_sensor_value[0]<5:
+        moveToLine()
+        
     else:
         base.straight(150)
         updateLocation(150)

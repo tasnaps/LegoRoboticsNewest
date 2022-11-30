@@ -26,11 +26,11 @@ left_ir_sensor = Ev3devSensor(Port.S3)
 right_ir_sensor = Ev3devSensor(Port.S4)
 
 #Center IR sensor for detecting the black line used in goal tracking
-center_ir_sensor = Ev3devSensor(Port.S2)
+center_lightSensor = LightSensor(Port.S2)
 
 left_ir_sensor_value = left_ir_sensor.read("DC")
 right_ir_sensor_value = right_ir_sensor.read("DC")
-center_ir_sensor_value = center_ir_sensor.read("DC")
+#center_ir_sensor_value = center_ir_sensor.read("DC")
 
 #Light sensor optional for goal tracking instead of black line and ir sensor
 #lightSensor = LightSensor(Port.S2)
@@ -38,8 +38,13 @@ center_ir_sensor_value = center_ir_sensor.read("DC")
 # when we set the robot in arena, must face forward we update this in degrees turned
 heading = 0
 locationToLine = 0
+def test():
+    reflectionValue = center_lightSensor.reflect()
+    if(reflectionValue<27):
+        base.straight(100)
+        test()
 
-
+test()
 #Optional function for approaching goal
 def getGoalDir():
     print("Getting goal direction")
@@ -157,5 +162,5 @@ def movement(left_ir_sensor, right_ir_sensor):
         updateLocation(150)
         movement(left_ir_sensor, right_ir_sensor)
 
-movement(left_ir_sensor, right_ir_sensor)
+#movement(left_ir_sensor, right_ir_sensor)
 
